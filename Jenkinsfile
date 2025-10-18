@@ -1,5 +1,21 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yaml '''
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              name: gitops-agent
+            spec:
+              containers:
+              - name: git
+                image: alpine/git:2.45
+                command:
+                - cat
+                tty: true
+            '''
+        }
+    }
 
     parameters {
         string(name: 'IMAGE_TAG', defaultValue: '', description: 'Docker 이미지 태그 (빌드 번호)')
@@ -14,7 +30,7 @@ pipeline {
     stages {
         stage('Clone GitOps Repository') {
             steps {
-                script {
+                container('git') {
                     withCredentials([usernamePassword(
                         credentialsId: GITHUB_CREDENTIALS_ID,
                         usernameVariable: 'GIT_USER',
@@ -36,12 +52,10 @@ pipeline {
         stage('Update Deployment YAML') {
             steps {
                 dir('repo') {
-                    script {
+                    container('git') {
                         sh '''
                             echo "Updating image tag..."
                             sed -i "s|iiijong/frontend:.*|iiijong/frontend:${IMAGE_TAG}|g" ${DEPLOYMENT_FILE}
-
-                            echo "Updated image line:"
                             grep "image:" ${DEPLOYMENT_FILE}
                         '''
                     }
@@ -52,15 +66,13 @@ pipeline {
         stage('Commit & Push Changes') {
             steps {
                 dir('repo') {
-                    script {
+                    container('git') {
                         sh '''
                             echo "Committing and pushing changes..."
                             git config user.name "iiijong"
                             git config user.email "pjwfish@naver.com"
-
                             git add ${DEPLOYMENT_FILE}
                             git commit -m "update frontend image to ${IMAGE_TAG}" || echo "No changes to commit"
-
                             git pull origin main --rebase
                             git push origin main
                         '''
