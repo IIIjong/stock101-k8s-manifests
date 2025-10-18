@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         GITHUB_CREDENTIALS_ID = 'github-credentials'
-        REPO_URL = 'https://github.com/<your-username>/stock101-k8s-manifests.git'
+        REPO_URL = 'https://github.com/iiijong/stock101-k8s-manifests.git'
         DEPLOYMENT_FILE = 'k8s/frontend/deployment.yaml'
     }
 
