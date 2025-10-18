@@ -9,7 +9,7 @@ pipeline {
             spec:
               containers:
               - name: git
-                image: alpine/git:2.45
+                image: alpine/git:2.43.0
                 command:
                 - cat
                 tty: true
