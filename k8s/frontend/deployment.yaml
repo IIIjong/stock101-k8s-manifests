@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: stock101
+  namespace: default
   labels:
     app: frontend
 spec:
