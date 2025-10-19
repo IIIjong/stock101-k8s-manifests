@@ -11,6 +11,7 @@ spec:
     - host: frontend.beyond.com
       http:
         paths:
+          # 프론트엔드 라우팅
           - path: /
             pathType: Prefix
             backend:
@@ -19,6 +20,7 @@ spec:
                 port:
                   number: 80
 
+          # 백엔드 라우팅
           - path: /api
             pathType: Prefix
             backend:
