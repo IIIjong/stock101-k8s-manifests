@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: iiijong/frontend:64
+          image: iiijong/frontend:7
           ports:
             - containerPort: 80
