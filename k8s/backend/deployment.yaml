@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: iiijong/backend:latest
+          image: iiijong/backend:8
           ports:
             - containerPort: 8080
           envFrom:
@@ -25,3 +25,22 @@ spec:
                 name: backend-config
             - secretRef:
                 name: backend-secret
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
