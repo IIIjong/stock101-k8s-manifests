@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: default
+data:
+  SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-service:3306/stock101
+  SPRING_DATASOURCE_USERNAME: stock101
+
+  SPRING_DATA_REDIS_HOST: redis-service
+  SPRING_DATA_REDIS_PORT: "6379"
+
+  JWT_ISSUER: https://accounts.beyond.com
+
+  APIKEY_STOCK_KEY: W9Z4bFIzc3gY3jdN1QZ3D4K3Xp6BQV5R
+  APIKEY_KIS_KEY: PStxC9xL7a3pLOTv8bL0afhTLKlSCMukA2xZ
