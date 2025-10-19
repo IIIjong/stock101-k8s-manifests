@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deploy
-  namespace: default
+  namespace: stock101
   labels:
     app: backend
 spec:

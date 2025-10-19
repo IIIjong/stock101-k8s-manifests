@@ -11,7 +11,7 @@ spec:
     path: k8s/backend
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: stock101
   syncPolicy:
     automated:
       prune: true
