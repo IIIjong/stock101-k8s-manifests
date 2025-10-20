@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: iiijong/backend:30
+          image: iiijong/backend:31
           ports:
             - containerPort: 8080
           envFrom:
